@@ -37,8 +37,12 @@ class AuthService
         $user = $this->userRepository->create($data);
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
+        $data = [
+            'data' => $user,
+            'token' => $token
+        ];
 
-        return $token;
+        return $data;
 
     }
 
@@ -63,6 +67,12 @@ class AuthService
         }
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        return $token;
+
+        $data = [
+            'data' => $user,
+            'token' => $token
+        ];
+
+        return $data;
     }
 }

@@ -33,7 +33,9 @@ class ApiAuthController extends Controller
         $result = ['status' => 200];
 
         try{
-            $result['token'] = $this->authService->userRegister($data);
+            $data = $this->authService->userRegister($data);
+            $result['token'] = $data['token'];
+            $result['data'] = $data['data'];
         }catch(Exception $e){
             $result = [
                 'status' => $e->getCode(),
@@ -52,7 +54,9 @@ class ApiAuthController extends Controller
         $result['status'] = 200;
 
         try{
-            $result['token'] = $this->authService->userLogin($data);
+            $data = $this->authService->userLogin($data);
+            $result['token'] = $data['token'];
+            $result['data'] = $data['data'];
         }catch (Exception $e){
             $result = [
                 'status' => $e->getCode(),

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Repositories\ArticleRepository;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleService
 {
@@ -50,7 +51,11 @@ class ArticleService
 
     public function deleteArticle($id)
     {
+
         $article = $this->articleRepository->getById($id);
+        if(Auth::user()->id !== $article->user_id){
+           throw new Exception('This action is unauthorized.', 401);
+        }
         if(!$article){
             throw new Exception('Article not found', 404);
         }

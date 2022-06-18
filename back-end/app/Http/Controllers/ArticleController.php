@@ -110,8 +110,8 @@ class ArticleController extends Controller
             $result['data'] = $this->articleService->updateArticle($request, $article->id);
         }catch(Exception $e){
             $result = [
-                'status' => 400,
-                'error' => $e->getCode()
+                'status' => $e->getCode(),
+                'error' => $e->getMessage()
             ];
         }
         return response($result, $result['status']);
@@ -125,11 +125,15 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $result = [
-            'status' => 200,
-            'data' => $this->articleService->deleteArticle($article->id)
-        ];
-
+        $result['status'] = 200;
+        try{
+            $result['data'] = $this->articleService->deleteArticle($article->id);
+        }catch(Exception $e){
+            $result = [
+                'status' => $e->getCode(),
+                'error' => $e->getMessage()
+            ];
+        }
         return response($result, $result['status']);
     }
 }
