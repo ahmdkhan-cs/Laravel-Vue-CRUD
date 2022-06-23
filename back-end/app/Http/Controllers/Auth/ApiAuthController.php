@@ -38,7 +38,7 @@ class ApiAuthController extends Controller
             $result['data'] = $data['data'];
         }catch(Exception $e){
             $result = [
-                'status' => $e->getCode(),
+                'status' => 400,
                 'error' => $e->getMessage()
             ];
         }

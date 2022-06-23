@@ -15,7 +15,7 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::all()->random()->id,
+            'user_id' => User::factory(),
             'title' => $this->faker->text(),
             'description' => $this->faker->sentences(4, true),
             'active' => $this->faker->boolean(),
